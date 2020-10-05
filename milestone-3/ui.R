@@ -10,6 +10,6 @@ shinyUI(
                    h2("Hello UFOs")),
                # You would add your content within the parentheses above.
                tabPanel(
-                   "Page2"
+                   "Page1"
                )
     ))
