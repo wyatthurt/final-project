@@ -8,18 +8,18 @@
 #
 
 library(shiny)
+ufo <- read.csv("raw_data/nuforc_reports.csv")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
-    output$distPlot <- renderPlot({
+    output$shape_plot <- renderPlot({
 
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+       ufo %>%
+            group_by(shape) %>%
+            summarize(shape_count = n(), .groups = "drop") %>%
+            ggplot(aes(x = shape, y = shape_count)) +
+            geom_col()
 
     })
 
